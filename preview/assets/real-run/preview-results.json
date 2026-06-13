@@ -1,0 +1,22 @@
+{
+  "run_id": "4ce1e44674df",
+  "roboflow_model_id": "handwritten-text-line-dataset-abshi/3",
+  "region_count": 2,
+  "final_text": "Paracetamol 5mg\nPanadol 1-1-1",
+  "original_asset": "assets/real-run/original.jpg",
+  "annotated_asset": "assets/real-run/annotated.png",
+  "regions": [
+    {
+      "region_number": 1,
+      "confidence": 0.8679290413856506,
+      "prediction": "Paracetamol 5mg",
+      "crop_asset": "assets/real-run/crops/region_001.png"
+    },
+    {
+      "region_number": 2,
+      "confidence": 0.899221658706665,
+      "prediction": "Panadol 1-1-1",
+      "crop_asset": "assets/real-run/crops/region_002.png"
+    }
+  ]
+}

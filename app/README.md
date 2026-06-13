@@ -37,3 +37,8 @@ Change that value to switch models without changing code.
 
 The web interface supports browser camera capture on `localhost`, `127.0.0.1`, or HTTPS.
 Use the `Mirror` toggle if the preview appears reversed. Captured camera images are submitted to the same `/process` endpoint as uploaded files.
+
+
+## Static Preview
+
+For non-technical design review, open `../preview/index.html` directly in a browser. It is a static mockup with generated sample images and does not run OCR.

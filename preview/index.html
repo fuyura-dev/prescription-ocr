@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prescription OCR Preview</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <div class="badge">Static UI Preview</div>
+          <h1>Prescription OCR</h1>
+          <p>Upload or capture a prescription image and review localized OCR results.</p>
+        </div>
+        <div class="status">
+          <span>Model</span>
+          <strong>trocr_prescription_lines-v2</strong>
+        </div>
+      </section>
+
+      <section class="upload-panel">
+        <div class="input-tabs" aria-label="Input method">
+          <button class="tab-button active" type="button">Upload</button>
+          <button class="tab-button" type="button">Camera</button>
+        </div>
+        <div class="mock-form">
+          <label class="drop-zone">
+            <input type="file" disabled>
+            <span>Choose prescription image</span>
+          </label>
+          <button type="button">Run OCR</button>
+        </div>
+        <p class="hint">This page is a non-functional design preview using one saved app result.</p>
+      </section>
+
+      <section class="summary-grid">
+        <div>
+          <span class="label">Run ID</span>
+          <strong>4ce1e44674df</strong>
+        </div>
+        <div>
+          <span class="label">Detected Regions</span>
+          <strong>2</strong>
+        </div>
+        <div>
+          <span class="label">Localization</span>
+          <strong>handwritten-text-line-dataset-abshi/3</strong>
+        </div>
+      </section>
+
+      <section class="image-grid">
+        <figure>
+          <figcaption>Original</figcaption>
+          <img src="assets/real-run/original.jpg" alt="Uploaded prescription preview">
+        </figure>
+        <figure>
+          <figcaption>Detected Boxes</figcaption>
+          <img src="assets/real-run/annotated.png" alt="Prescription with detected boxes">
+        </figure>
+      </section>
+
+      <section class="transcription-panel">
+        <div class="section-heading">
+          <h2>Final Text</h2>
+        </div>
+        <pre>Paracetamol 5mg
+Panadol 1-1-1</pre>
+      </section>
+
+      <section class="regions-panel">
+        <div class="section-heading">
+          <h2>Line Results</h2>
+        </div>
+        <div class="region-list">
+          <article class="region-row">
+            <div class="region-image"><img src="assets/real-run/crops/region_001.png" alt="Line crop 1"></div>
+            <div class="region-text"><div class="region-meta"><strong>Line 1</strong><span>0.87</span></div><p>Paracetamol 5mg</p></div>
+          </article>
+          <article class="region-row">
+            <div class="region-image"><img src="assets/real-run/crops/region_002.png" alt="Line crop 2"></div>
+            <div class="region-text"><div class="region-meta"><strong>Line 2</strong><span>0.90</span></div><p>Panadol 1-1-1</p></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
