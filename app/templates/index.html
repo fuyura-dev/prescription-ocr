@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prescription OCR</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <h1>Prescription OCR</h1>
+          <p>Upload a full prescription image and extract handwritten line text.</p>
+        </div>
+        <div class="status">
+          <span>Model</span>
+          <strong>{{ model_name }}</strong>
+        </div>
+      </section>
+
+      <section class="upload-panel">
+        <form id="ocr-form" action="/process" method="post" enctype="multipart/form-data">
+          <div class="input-tabs" role="tablist" aria-label="Input method">
+            <button class="tab-button active" type="button" data-input-mode="upload">Upload</button>
+            <button class="tab-button" type="button" data-input-mode="camera">Camera</button>
+          </div>
+
+          <div class="input-panel active" data-panel="upload">
+            <label class="drop-zone">
+              <input id="file-input" type="file" name="file" accept="image/png,image/jpeg" required>
+              <span>Choose prescription image</span>
+            </label>
+          </div>
+
+          <div class="input-panel" data-panel="camera">
+            <div class="camera-toolbar">
+              <button id="start-camera" class="secondary-button" type="button">Open Camera</button>
+              <button id="capture-photo" class="secondary-button" type="button" disabled>Capture</button>
+              <label class="mirror-control">
+                <input id="mirror-camera" type="checkbox">
+                <span>Mirror</span>
+              </label>
+            </div>
+            <div class="camera-grid">
+              <div class="camera-frame">
+                <video id="camera-video" playsinline muted></video>
+                <span class="camera-placeholder">Camera preview</span>
+              </div>
+              <div class="camera-frame">
+                <canvas id="capture-canvas"></canvas>
+                <img id="captured-preview" alt="Captured prescription preview">
+                <span class="camera-placeholder">Captured image</span>
+              </div>
+            </div>
+            <p id="camera-message" class="hint"></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">Run OCR</button>
+          </div>
+        </form>
+        <p class="hint">Accepted files: JPG, JPEG, PNG. First run may take longer while TrOCR loads.</p>
+      </section>
+
+      {% if error %}
+      <section class="error-panel">
+        <strong>Processing failed</strong>
+        <p>{{ error }}</p>
+      </section>
+      {% endif %}
+
+      {% if result %}
+      <section class="summary-grid">
+        <div>
+          <span class="label">Run ID</span>
+          <strong>{{ result.run_id }}</strong>
+        </div>
+        <div>
+          <span class="label">Detected Regions</span>
+          <strong>{{ result.region_count }}</strong>
+        </div>
+        <div>
+          <span class="label">Localization</span>
+          <strong>{{ result.roboflow_model_id }}</strong>
+        </div>
+      </section>
+
+      <section class="image-grid">
+        <figure>
+          <figcaption>Original</figcaption>
+          <img src="{{ result.original_url }}" alt="Uploaded prescription">
+        </figure>
+        <figure>
+          <figcaption>Detected Boxes</figcaption>
+          <img src="{{ result.annotated_url }}" alt="Prescription with detected boxes">
+        </figure>
+      </section>
+
+      <section class="transcription-panel">
+        <div class="section-heading">
+          <h2>Final Text</h2>
+        </div>
+        <pre>{{ result.final_text }}</pre>
+      </section>
+
+      <section class="regions-panel">
+        <div class="section-heading">
+          <h2>Line Results</h2>
+        </div>
+        <div class="region-list">
+          {% for region in result.regions %}
+          <article class="region-row">
+            <div class="region-image">
+              <img src="{{ region.crop_url }}" alt="Detected line {{ region.region_number }}">
+            </div>
+            <div class="region-text">
+              <div class="region-meta">
+                <strong>Line {{ region.region_number }}</strong>
+                <span>{{ '%.2f'|format(region.confidence) }}</span>
+              </div>
+              <p>{{ region.prediction }}</p>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </main>
+  </body>
+</html>

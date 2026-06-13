@@ -1,0 +1,37 @@
+# Notebook and environment
+jupyter
+ipykernel
+python-dotenv
+
+# Data handling and visualization
+pandas
+numpy
+Pillow
+opencv-python
+matplotlib
+PyYAML
+scikit-learn
+tqdm
+
+# Roboflow hosted inference/localization
+inference-sdk
+roboflow
+
+# TrOCR training and evaluation
+torch
+torchvision
+transformers
+datasets
+evaluate
+jiwer
+accelerate
+sentencepiece
+
+# Optional local detector fallback
+ultralytics
+
+# Web app
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
